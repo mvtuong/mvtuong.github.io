@@ -1,5 +1,143 @@
 <html>
   <body>
-    <h1>Hello World<h1>
+    <head>
+      <style type="text/css">
+        #cssChart, #windChart {
+          white-space: nowrap;
+          display: flex;
+        }
+        #cssChart > div, #windChart > div {
+          display: flex;
+          width: 24px;
+          height: 100%;
+          flex-direction: column;
+          justify-content: flex-end;
+        }
+
+        #cssChart > div > div {
+          background-color: #e7f1fd;;
+          border-top: 2px solid #1878f0;
+          position: relative;
+        }
+
+        #cssChart > div > div > span {
+          position: absolute;
+          top: -20px;
+          left: 3px;
+          font-size: 11px;
+        }
+
+        #windChart > div {
+          width: 72px;
+          text-align: center;
+        }
+
+        #windChart > div > img {
+          transform-origin: 50% 50%;
+          margin: auto;          
+        }
+      </style>
+    </head>
+    <div id="svgChart" style="width: 600px; height: 100px; margin-top: 80px;"></div>
+    <div id="cssChart" style="width: 600px; height: 100px; margin-top: 80px;"></div>
+    <div id="windChart" style="width: 600px; height: 100px; margin-top: 80px;"></div>
+    <script>
+      const GRAPH_DATA = Array.from({ length: 24 }, () => ({ value: Math.floor(Math.random() * 40) }));
+
+      const getValueArray = data => data.map(item => item.value);
+
+      const getCoordinates = (values, width, height) => {
+        const min = Math.floor(Math.min.apply(null, values) * 0.95);
+        const max = Math.ceil(Math.max.apply(null, values) * 1.05);
+
+        const yRatio = (max - min) / height;
+        const xRatio = width / (values.length - 2)
+        return values.map((value, i) => {
+          const y = height - ((value - min) / yRatio);
+          const x = (xRatio * i) - (xRatio / 2);
+          return [x, y, value];
+        })
+      }
+
+      const HEIGHT = 80;
+      const WIDTH = 584;
+      const calculateSVGData = (data, width, height) => getCoordinates(getValueArray(data), width, height);
+
+      const svgData = calculateSVGData(GRAPH_DATA, WIDTH, HEIGHT);
+
+      const chart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chart.setAttribute('width', '100%');
+      chart.setAttribute('height', '100%');
+      chart.setAttribute('viewBox', `0 0 ${WIDTH} ${HEIGHT}`);
+      let lineData = '';
+      svgData.forEach((coordinates, i) => {
+        if (i % 3 === 1) {
+          const text = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'text'
+          );
+          text.innerHTML = coordinates[2];
+          text.setAttribute('x', coordinates[0] - 2);
+          text.setAttribute('y', coordinates[1] - 5);
+          chart.appendChild(text);
+        }
+        
+        const command = i === 0 ? 'M' : 'L';
+        lineData = `${lineData} ${command} ${coordinates[0]},${coordinates[1]}`
+      });
+      const line = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path'
+      );
+      line.setAttribute('d', lineData);
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', '#fc0');
+      line.setAttribute('stroke-width', 2);
+
+      chart.appendChild(line);
+
+      const areaData = `${lineData} L${svgData[svgData.length - 1][0]},80 L${svgData[0][0]},80 z`;
+
+      const area = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path'
+      );
+      area.setAttribute('d', areaData);
+      area.setAttribute('fill', 'rgba(255, 204, 0, 0.2)');
+      chart.appendChild(area);
+
+      const svgChart = document.getElementById('svgChart');
+      svgChart.appendChild(chart);
+
+      const cssChart = document.getElementById('cssChart');
+      GRAPH_DATA.forEach((item, i) => {
+        const div = document.createElement('div');
+        const height = document.createElement('div');
+        height.setAttribute('style', `height: ${item.value * 3}px`);
+        if (i % 3 === 1) {
+          const text = document.createElement('span');
+          text.innerHTML = `${item.value}%`;
+          height.appendChild(text);
+        }
+        div.appendChild(height);
+        cssChart.appendChild(div);
+      });
+
+      const windChart = document.getElementById('windChart');
+      GRAPH_DATA.forEach((item, i) => {
+        if (i % 3 === 1) {
+          const div = document.createElement('div');
+          const image = document.createElement('img');
+          image.setAttribute('src', 'https://ssl.gstatic.com/m/images/weather/wind_unselected.svg');
+          image.style.width = `${item.value + 10}px`;
+          image.style.transform = `rotate(${Math.floor(Math.random() * 359 - 90)}deg)`;
+          const text = document.createElement('span');
+          text.innerHTML = `${item.value}km/h`;
+          div.appendChild(text);
+          div.appendChild(image);
+          windChart.appendChild(div);
+        }
+      });
+    </script>
   </body>
 </html>
