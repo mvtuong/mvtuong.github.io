@@ -555,6 +555,16 @@
           animation-delay: 3s;
         }
 
+        @media only screen and (max-width: 524px) {
+          .timeline-section {
+            display: none;
+          }
+
+          .left .item:first-child {
+            margin-top: 0;
+          }
+        }
+
       </style>
     </head>
     <div id="content">
@@ -590,7 +600,7 @@
           </div>
         </div>
       </section>
-      <section>
+      <section class="timeline-section">
         <h3>My 10-year Story</h3>
         <div class="timeline">
           <p>
@@ -819,17 +829,18 @@
             animateElement(elements);
           });
         } else {
-          init();
+          setTimeout(function() {
+            checkPosition();
+          }, 1000);
         }
       }
 
       animateElement(events);
 
       var windowHeight;
-
-      var isWaiting = false;
       
       function checkPosition() {
+        windowHeight = window.innerHeight;
         for (var i = 0; i < items.length; i += 1) {
           var positionFromTop = items[i].getBoundingClientRect().top;
           if (positionFromTop - windowHeight <= -100) {
@@ -863,7 +874,9 @@
         }
       }
 
-      function onScroll() {
+      var isWaiting = false;
+
+      window.onscroll = function() {
         // Throttle
         if (isWaiting) {
           return;
@@ -876,16 +889,6 @@
           checkPosition();
         }, 200);
       }
-
-      function init() {
-        windowHeight = window.innerHeight;
-        setTimeout(function() {
-          checkPosition();
-        }, 1000);
-      }
-
-      window.addEventListener('scroll', onScroll);
-      window.addEventListener('resize', init);
     </script>
   </body>
 </html>
