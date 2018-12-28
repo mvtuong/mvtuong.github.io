@@ -234,15 +234,6 @@
           }
         }
 
-        @keyframes signature {
-          from {
-            stroke-dashoffset: 915.0281372070312;
-          }
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
-
         #content {
           display: flex;
           flex-wrap: wrap;
@@ -710,21 +701,8 @@
 
         #signature-wrapper {
           width: 100%;
-          height: 90px;
+          height: 110px;
           padding-bottom: 40px;
-        }
-
-        #signature {
-          stroke-dashoffset: 915.0281372070312;
-          stroke-dasharray: 915.0281372070312;
-          animation: signature 7s forwards;
-        }
-
-        #signature + path {
-          stroke-dashoffset: 310;
-          stroke-dasharray: 310;
-          animation: signature 3s forwards;
-          animation-delay: 3s;
         }
 
         @media only screen and (max-width: 524px) {
@@ -1059,7 +1037,14 @@
       </section>
       <section>
         <div id="signature-wrapper">
-          <svg width="100%" height="100%" viewBox="-10 -10 310 80"></svg>
+          <svg width="100%" height="100%" viewBox="-10 -10 320 80">
+            <defs>  
+              <linearGradient id="gradient" x1="50%" y1="0%" x2="50%" y2="100%"> 
+                <stop offset="0%" stop-color="#009688" />
+                <stop offset="100%" stop-color="#99d5cf" />
+              </linearGradient> 
+            </defs>
+          </svg>
         </div>
       </section>
     </div>
@@ -1103,6 +1088,11 @@
       animateElement(events);
 
       var windowHeight;
+
+      var startTime = Date.now();
+      document.onload = function() {
+        startTime = Date.now();
+      }
       
       function checkPosition() {
         windowHeight = window.innerHeight;
@@ -1118,6 +1108,8 @@
             return;
           }
 
+          var interval = Date.now() - startTime;
+
           const signature = document.querySelector('#signature-wrapper svg');
           const path = document.createElementNS(
             'http://www.w3.org/2000/svg',
@@ -1125,9 +1117,24 @@
           );
           path.setAttribute('id', 'signature');
           path.setAttribute('d', 'M 0,50 L 0,0 L 50,25 L 100,0 L 100,50 L 100,0 L 101,0 L 150,50 L 200,0 L 300,0 L 250,0 L250,50');
-          path.setAttribute('stroke', '#00AEF0');
+          path.setAttribute('stroke', 'url("#gradient")');
           path.setAttribute('fill', 'none');
+          path.setAttribute('stroke-dashoffset', '915');
+          path.setAttribute('stroke-dasharray', '915');
+          path.innerHTML = `<animate begin="${interval}ms" attributeName="stroke-dashoffset" from="915" to="0" dur="10s" fill="freeze" calcMode="linear"/>`;
           signature.appendChild(path);
+
+          const pen = document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'polygon'
+          );
+          pen.setAttribute('points', '0,0 0,-3 7,-10 10,-7 3,0');
+          pen.setAttribute('fill', 'none');
+          pen.setAttribute('stroke', 'white');
+          pen.setAttribute('visibility', 'hidden')
+          pen.innerHTML = `<animateMotion dur="6.6s" begin="${interval}ms" fill="freeze"><mpath xlink:href="#signature" calcMode="linear" /></animateMotion><set attributeName="visibility" from="hidden" to="visible" begin="${interval}ms"/>`;
+          signature.appendChild(pen);
+
           const underline = document.createElementNS(
             'http://www.w3.org/2000/svg',
             'path'
@@ -1135,6 +1142,9 @@
           underline.setAttribute('d', 'M -5,55 L 305,55');
           underline.setAttribute('stroke', '#A5A5A5');
           underline.setAttribute('fill', 'none');
+          underline.setAttribute('stroke-dashoffset', '310');
+          underline.setAttribute('stroke-dasharray', '310');
+          underline.innerHTML = `<animate begin="${interval}ms" attributeName="stroke-dashoffset" from="310" to="0" dur="7s" fill="freeze" calcMode="linear"/>`;
           signature.appendChild(underline);
         }
       }
