@@ -108,6 +108,21 @@
           }
         }
 
+        @keyframes animateFlower {
+          0% {
+            top: var(--top, 0);
+            right: var(--right, 0);
+            opacity: 1;
+            transform: rotateZ(0) scale(var(--weight, 1) / 10);
+          }
+          100% {
+            opacity: 0;
+            top: calc(var(--weight, 1) * 30px);
+            right: calc(var(--right, 0) * var(--weight, 1) / 16);
+            transform: rotateZ(3600deg) scale(calc(var(--weight, 1) / 4));
+          }
+        }
+
         @keyframes flight {
           0% {
             right: -8px;
@@ -263,6 +278,10 @@
           color: #A5A5A5;
           overflow: hidden;
           animation: grow 1s linear forwards 2;
+        }
+
+        #name:hover:before {
+          animation-iteration-count: infinite;
         }
 
         .path {
@@ -777,12 +796,61 @@
           animation-delay: 300ms;
         }
 
+        .flower {
+          width: 10px;
+          height: 10px;
+          background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 491.3 491.3'><path d='M481.6,113.825c-16-27.8-47.4-36.4-69.2-34.7c1.5-22.5-5.8-43.5-20.2-58.1c-29.8-30.9-82.3-26-120.8,9.4c-25.3,23.6-33.6,79.6-35.8,128c-26.1-40.9-61.4-85.4-95.2-93.1c-51.2-11.3-99,10.6-109.4,52.3c-5.2,19.8-1,41.7,11.6,60.4c-19.8,9.4-42.6,32.6-42.6,64.7c0.1,37.5,30.4,71.8,72.1,82.2c36,8.9,82.7-7.7,121.5-27.4c-19.6,38.8-36.1,85.4-27.1,121.3c10.4,41.7,44.8,71.9,82.3,71.9c32,0,55.2-22.9,64.6-42.7c18.8,12.5,40.6,16.7,60.4,11.5c41.7-10.4,63.6-58.3,52.1-109.4c-7.5-32.4-48.8-66.1-88.3-91.8c44.5-2,95.3-10.8,122.7-37.3C491.3,191.225,500.3,146.425,481.6,113.825z M82.4,285.325c-24-6.2-41.7-23.9-41.8-42.6l0,0c0-19,22.3-32.7,42.6-32.4c17.8,0.3,31.1-26.8,10.3-38.6c-17.9-10.1-27.1-28.1-23-42.7c5.2-19.8,32.2-29.2,61.4-23c26.1,5.2,69.9,70.7,97.1,122.7C185.5,258.025,116.8,293.525,82.4,285.325z M385.3,358.425c6.3,29.2-3.1,56.3-22.9,61.5c-14.6,4.2-31-6-42.7-22.9c-13.7-19.7-38.7-7.6-38.5,10.4c0.1,20.3-13.3,42.7-32.3,42.7l0,0c-18.8,0-36.5-17.7-42.7-41.7c-8.3-34.4,27.1-103.1,56.3-146.9C314.4,288.625,380.1,332.425,385.3,358.425z M431.6,191.925c-25.6,24.4-102.9,28-155.4,24.5c-2.5-58.7,2.7-137.4,22.7-154.9c22.2-20,50.3-25.4,64.7-10.8c10.9,10.6,10.6,30.1,1.4,48.5c-9.9,20,10.9,37.7,28.3,28.2c17.8-9.7,43.6-9.8,53.1,6.7l0,0C455.7,150.425,449.2,174.525,431.6,191.925z' fill='white'/></svg>")  no-repeat center/contain;
+        }
+
+        .flower-wrapper {
+          position: absolute;
+          top: 4px;
+          z-index: 10;
+          opacity: 0;
+        }
+
+        .flower-wrapper.animate {
+          animation: animateFlower 30s linear forwards 1;
+        }
+
+        .flower-wrapper:first-child {
+          animation-delay: calc(1 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(2) {
+          animation-delay: calc(1.2 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(3) {
+          animation-delay: calc(1.4 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(4) {
+          animation-delay: calc(1.45 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(5) {
+          animation-delay: calc(1.5 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(6) {
+          animation-delay: calc(1.55 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(7) {
+          animation-delay: calc(1.85 * 2000ms);
+        }
+
+        .flower-wrapper:nth-child(8) {
+          animation-delay: calc(1.9 * 2000ms);
+        }
+
       </style>
     </head>
     <div id="content">
       <section>
         <a class="photo" href="https://www.linkedin.com/in/mvtuong/">
-          <svg id="circle" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" viewBox="-20 -20 240 240">
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" viewBox="-20 -20 240 240">
             <defs>
               <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="rgb(0, 151, 255)" />
@@ -849,6 +917,32 @@
             </div>
             <div class="cloud-wrapper">
               <div class="cloud"></div>
+            </div>
+          </span>
+          <span>
+            <div class="flower-wrapper" style="--weight: 14; --top: -80px; --right: -50px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 20; --top: -105px; --right: 50px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 10; --top: -110px; --right: 150px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 22; --top: -120px; --right: 300px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 18; --top: -130px; --right: 420px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 8; --top: -130px; --right: 500px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 12; --top: -115px; --right: 680px">
+              <div class="flower"></div>
+            </div>
+            <div class="flower-wrapper" style="--weight: 15; --top: -110px; --right: 750px">
+              <div class="flower"></div>
             </div>
           </span>
           <div class="event bachelor vietnam" style="--duration: 200">
@@ -1039,9 +1133,25 @@
         <div id="signature-wrapper">
           <svg width="100%" height="100%" viewBox="-10 -10 320 80">
             <defs>  
-              <linearGradient id="gradient" x1="50%" y1="0%" x2="50%" y2="100%"> 
-                <stop offset="0%" stop-color="#009688" />
-                <stop offset="100%" stop-color="#99d5cf" />
+              <linearGradient id="gradient-animate" x1="100%" y1="50%" x2="0%" y2="50%"> 
+                <stop offset="0%">
+                  <animate attributeName="stop-color" values="red; orange; yellow; green; blue; purple; red" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="20%">
+                  <animate attributeName="stop-color" values="orange; yellow; green; blue; purple; red; orange" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="40%">
+                  <animate attributeName="stop-color" values="yellow; green; blue; purple; red; orange; yellow" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="60%">
+                  <animate attributeName="stop-color" values="green; blue; purple; red; orange; yellow; green" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="80%">
+                  <animate attributeName="stop-color" values="blue; purple; red; orange; yellow; green; blue" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%">
+                  <animate attributeName="stop-color" values="purple; red; orange; yellow; green; blue; purple" dur="4s" repeatCount="indefinite" />
+                </stop>
               </linearGradient> 
             </defs>
           </svg>
@@ -1117,7 +1227,7 @@
           );
           path.setAttribute('id', 'signature');
           path.setAttribute('d', 'M 0,50 L 0,0 L 50,25 L 100,0 L 100,50 L 100,0 L 101,0 L 150,50 L 200,0 L 300,0 L 250,0 L250,50');
-          path.setAttribute('stroke', 'url("#gradient")');
+          path.setAttribute('stroke', "url('#gradient-animate')");
           path.setAttribute('fill', 'none');
           path.setAttribute('stroke-dashoffset', '915');
           path.setAttribute('stroke-dasharray', '915');
@@ -1140,7 +1250,7 @@
             'path'
           );
           underline.setAttribute('d', 'M -5,55 L 305,55');
-          underline.setAttribute('stroke', '#A5A5A5');
+          underline.setAttribute('stroke', 'rgb(170,170,170)');
           underline.setAttribute('fill', 'none');
           underline.setAttribute('stroke-dashoffset', '310');
           underline.setAttribute('stroke-dasharray', '310');
@@ -1172,6 +1282,11 @@
         var clouds = document.getElementsByClassName('cloud-wrapper');
         for (var i = 0; i < clouds.length; i += 1) {
           clouds[i].style.animationIterationCount = 'infinite';
+        }
+
+        var flowers = document.getElementsByClassName('flower-wrapper');
+        for (var i = 0; i < flowers.length; i += 1) {
+          flowers[i].classList.add('animate');
         }
       }
     </script>
