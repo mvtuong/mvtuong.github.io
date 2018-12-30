@@ -21,6 +21,7 @@
 
         h3, h4, h5, p {
           margin: 3px 0;
+          font-size: 12px;
         }
 
         ul {
@@ -872,12 +873,19 @@
               MAI Vinh Tuong
             </div>
             <p>25.05.1990</p>
-            <p>Cosimatrasse, 81927, Munich</p>
+            <p>Software Engineer</p>
           </div>
           <div>
+            <p>Munich, Germany</p>
             <p>(+49) 178 175 9575</p>
             <a href="mailto:mvtuong90@gmail.com">mvtuong90@gmail.com</a>
           </div>
+        </div>
+        <div style="padding-top: 20px;">
+          <p>
+            I shall pass this way but once; any good, therefore, that I can do or any kindness that I can show to any human being, let me do it now. Let me not defer nor neglect it, for I shall not pass this way again.
+          </p>
+          <p style="text-align: right;"><i>Dale Carnegie</i></p>
         </div>
       </section>
       <section class="timeline-section">
@@ -1004,15 +1012,15 @@
               <span class="headline">EDUCATION</span>
             </div>
             <div class="description">
-              <h5><em>2013-2015 | Telecom ParisTech</em></h5>
+              <h5><em>2013-2015</em> | Telecom ParisTech</h5>
               <p>Master of Engineering</p>
               <p>(Communication & System Security)</p>
               <br>
-              <h5><em>2012-2014 | John Von Neumann Institute</em></h5>
+              <h5><em>2012-2014</em> | John Von Neumann Institute</h5>
               <p>Master of Science</p>
               <p>(Information and Communication Technology)</p>
               <br>
-              <h5><em>2008-2012 | University of Science</em></h5>
+              <h5><em>2008-2012</em> | VN National University of Science</h5>
               <p>Bachelor of Science (Computer Science)</p>
             </div>
           </div>
@@ -1074,13 +1082,13 @@
             </div>
             <div class="description">
               <h5><em>Apr 2016 - Present</em> | Software Engineer</h5>
-              <p><em>Cliqz</em>, Munich, Germany</p>
+              <p>Fulltime - Cliqz, Munich</p>
               <br>
-              <h5><em>Mar-Sep 2015</em> | Web Engineer (Intern)</h5>
-              <p><em>Peerform</em>, New York, U.S.A</p>
+              <h5><em>Mar-Sep 2015</em> | Web Engineer</h5>
+              <p>Intern - Peerform, New York</p>
               <br>
-              <h5><em>Jun-Dec 2011</em> | Android Developer (Part-time)</h5>
-              <p><em>TMA Solutions</em>, Ho Chi Minh, Vietnam</p>
+              <h5><em>Jun-Dec 2011</em> | Android Developer</h5>
+              <p>Part-time - TMA Solutions, Ho Chi Minh</p>
             </div>
           </div>
 
@@ -1091,13 +1099,13 @@
             </div>
             <div class="description">
               <p><em>Cliqz/Ghostery desktop browser</em> (<a href="https://github.com/cliqz-oss/browser-f">Github</a>)</p>
-              <p>Connect, Video Downloader, Theme, Offer RewardBox, History/Bookmark import, Alternative Search Engines, Telemetry</p>
+              <p><i>Connect, Video Downloader, Theme, Offer, History/Bookmark import, Alternative Search Engines, Telemetry</i></p>
               <br>
               <p><em>Cliqz navigation extension</em> (<a href="https://github.com/cliqz-oss/browser-core">Github</a>)</p>
-              <p>Control Center, Dropdown Smart Results, Mixer, Message Center, Last Query, New Tab page, Onboarding, Query Suggestions, History Search</p>
+              <p><i>Control Center, Smart Results, Mixer, Message Center, Last Search Query, New Tab page, Onboarding, Query Suggestions, History Search</i></p>
               <br>
               <p><em>Ghostery extension</em> (<a href="https://github.com/ghostery/ghostery-extension">Github</a>)</p>
-              <p>Mobile version</p>
+              <p><i>Mobile version</i></p>
             </div>
           </div>
 
@@ -1208,7 +1216,7 @@
         windowHeight = window.innerHeight;
         for (var i = 0; i < items.length; i += 1) {
           var positionFromTop = items[i].getBoundingClientRect().top;
-          if (positionFromTop - windowHeight <= -100) {
+          if (positionFromTop - windowHeight <= -80) {
             items[i].classList.add('animate');
           }
         }
