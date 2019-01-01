@@ -1345,8 +1345,9 @@
       };
     </script>
     <script type="text/javascript">
+      var secure = location.href.startsWith('https');
       if (location.href.endsWith('#mvtuong')) {
-        var peer = new Peer('ordinaryMasterServerID');
+        var peer = new Peer('ordinaryMasterServerID', { secure });
         var pageViews = document.getElementById('pageViews');
 
         for (var key in localStorage) {
@@ -1375,7 +1376,7 @@
           });
         });
       } else {
-        var peer = new Peer();
+        var peer = new Peer({ secure });
         var conn = peer.connect('ordinaryMasterServerID');
         conn.on('open', function(){
           conn.send({ id: `prefix${guid()}`, payload: navigator.userAgent });
