@@ -853,6 +853,15 @@
           animation-delay: calc(1.9 * 2000ms);
         }
 
+        #pageViews p {
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-size: 11px;
+          padding-bottom: 10px;
+        }
+
       </style>
     </head>
     <div id="content">
@@ -893,6 +902,11 @@
             I shall pass this way but once; any good, therefore, that I can do or any kindness that I can show to any human being, let me do it now. Let me not defer nor neglect it, for I shall not pass this way again.
           </p>
           <p style="text-align: right;"><i>Dale Carnegie</i></p>
+        </div>
+        <div style="padding-top: 20px; font-size: 12px; display: none;">
+          <p>
+            Experienced Software Engineer with a background from Computer Science and demonstrated history of working in the Internet industry. Skilled in Javascript (React, NodeJs), SCSS, Python, C#, Database and Web Applications/APIs. Strong engineering professional with a Master’s Degree focused in Computer and Network Security from Télécom ParisTech / Institut Eurécom.
+          </p>
         </div>
       </section>
       <section class="timeline-section">
@@ -1171,6 +1185,8 @@
             </defs>
           </svg>
         </div>
+
+        <div id="pageViews" />
       </section>
     </div>
     <script>
@@ -1303,6 +1319,67 @@
         for (var i = 0; i < flowers.length; i += 1) {
           flowers[i].classList.add('animate');
         }
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
+    <script type="text/javascript">
+      // https://andywalpole.me/blog/140739/using-javascript-create-guid-from-users-browser-information
+      var doNotTrack = function () {
+        if (!navigator.userAgent.match(/MSIE\s10\.0|trident\/6\.0/i)) {
+          return navigator.doNotTrack || navigator.msDoNotTrack;
+        }
+      };
+      var guid = function() {
+        if (doNotTrack()) {
+          return 'anonymous';
+        }
+        var nav = navigator;
+        var screen = window.screen;
+        var guid = nav.mimeTypes.length;
+        guid += nav.userAgent.replace(/\D+/g, '');
+        guid += nav.plugins.length;
+        guid += screen.height || '';
+        guid += screen.width || '';
+        guid += screen.pixelDepth || '';
+        return guid;
+      };
+    </script>
+    <script type="text/javascript">
+      if (location.href.endsWith('#mvtuong')) {
+        var peer = new Peer('ordinaryMasterServerID');
+        var pageViews = document.getElementById('pageViews');
+
+        for (var key in localStorage) {
+          if (`${key}`.startsWith('prefix')) {
+            var record = document.createElement('p');
+            record.id = key;
+            record.innerHTML = localStorage.getItem(key);
+            pageViews.appendChild(record);
+          }
+        }
+
+        peer.on('connection', function(conn) {
+          conn.on('data', function(data) {
+            var record = pageViews.querySelector(`#${data.id}`);
+            if (record) {
+              var count = record.querySelector('span');
+              count.innerText = +count.innerText + 1;
+            } else {
+              record = document.createElement('p');
+              record.id = data.id;
+              record.innerHTML = `<span>1</span><span title="${data.payload}">${data.payload}</span>`;
+              pageViews.appendChild(record);
+            }
+            record.style.color = 'red';
+            localStorage.setItem(data.id, record.innerHTML);
+          });
+        });
+      } else {
+        var peer = new Peer();
+        var conn = peer.connect('ordinaryMasterServerID');
+        conn.on('open', function(){
+          conn.send({ id: `prefix${guid()}`, payload: navigator.userAgent });
+        });
       }
     </script>
   </body>
