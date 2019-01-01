@@ -1380,7 +1380,11 @@
         var peer = new Peer(options);
         var conn = peer.connect('ordinaryMasterServerID');
         conn.on('open', function(){
-          conn.send({ id: `prefix${guid()}`, payload: navigator.userAgent });
+          if (secure) {
+            conn.send({ id: `prefix${guid()}`, payload: navigator.userAgent });
+          } else {
+            conn.send({ id: `prefixTest`, payload: 'Test' });
+          }
         });
       }
     </script>
