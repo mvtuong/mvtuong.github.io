@@ -1351,16 +1351,28 @@
         }
       }
 
+      function initTheme() {
+        document.body.style.setProperty('--body-background', sessionStorage.getItem('body-background'));
+        document.body.style.setProperty('--body-color', sessionStorage.getItem('body-color'));
+      }
+
+      initTheme();
+
       var btnLight = document.getElementById('btnLight');
       btnLight.onclick = function() {
         document.body.style.setProperty('--body-background', '#fff');
         document.body.style.setProperty('--body-color', '#000');
+
+        sessionStorage.setItem('body-background', '#fff');
+        sessionStorage.setItem('body-color', '#000');
       };
 
       var btnDark = document.getElementById('btnDark');
       btnDark.onclick = function() {
-        document.body.style.setProperty('--body-background', '#0d0f22');
-        document.body.style.setProperty('--body-color', '#fff');
+        document.body.removeAttribute('style');
+
+        sessionStorage.removeItem('body-background');
+        sessionStorage.removeItem('body-color');
       };
 
       document.getElementById('theme-wrapper').style.display = 'block';
