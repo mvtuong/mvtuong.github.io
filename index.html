@@ -1352,8 +1352,10 @@
       }
 
       function initTheme() {
-        document.body.style.setProperty('--body-background', sessionStorage.getItem('body-background'));
-        document.body.style.setProperty('--body-color', sessionStorage.getItem('body-color'));
+        if (sessionStorage.length) {
+          document.body.style.setProperty('--body-background', sessionStorage.getItem('body-background'));
+          document.body.style.setProperty('--body-color', sessionStorage.getItem('body-color'));
+        }
       }
 
       initTheme();
@@ -1370,9 +1372,7 @@
       var btnDark = document.getElementById('btnDark');
       btnDark.onclick = function() {
         document.body.removeAttribute('style');
-
-        sessionStorage.removeItem('body-background');
-        sessionStorage.removeItem('body-color');
+        sessionStorage.clear();
       };
 
       document.getElementById('theme-wrapper').style.display = 'block';
