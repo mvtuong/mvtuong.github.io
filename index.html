@@ -253,6 +253,17 @@
           }
         }
 
+        @keyframes modalAnimation {
+          from {
+            opacity: 0;
+            transform: scale(0.1) translate(-50%, -50%);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translate(-50%, -50%);
+          }
+        }
+
         #content {
           display: flex;
           flex-wrap: wrap;
@@ -882,6 +893,37 @@
           font-size: 12px;
         }
 
+        #popUp {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+          z-index: 6;
+        }
+
+        #popUp .main {
+          position: fixed;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 560px;
+          height: 315px;
+          z-index: 9999;
+          max-width: 100%;
+
+          opacity: 0;
+          transform-origin: left;
+          transform: scale(0.1);
+          animation: modalAnimation 700ms forwards;
+        }
+
+        #popUp .main iframe {
+          width: 100%;
+          height: 100%;
+        }
       </style>
     </head>
     <div id="content">
@@ -1152,7 +1194,7 @@
               <p><i>Connect, Video Downloader, Theme, Offer, History/Bookmark import, Alternative Search Engines, Telemetry</i></p>
               <br>
               <p><em>Cliqz navigation extension</em> (<a href="https://github.com/cliqz-oss/browser-core">Github</a>)</p>
-              <p><i>Control Center, <a href="https://www.youtube.com/watch?v=yAsVQRlialo">Smart Results</a>, Mixer, Message Center, Last Search Query, New Tab page, Onboarding, Query Suggestions, History Search</i></p>
+              <p><i>Control Center, <a class="anchor" href="#!" data-link='<iframe src="https://www.youtube.com/embed/yAsVQRlialo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'>Smart Results</a>,, Mixer, Message Center, Last Search Query, New Tab page, Onboarding, Query Suggestions, History Search</i></p>
               <br>
               <p><em>Ghostery extension</em> (<a href="https://github.com/ghostery/ghostery-extension">Github</a>)</p>
               <p><i>Mobile UI</i></p>
@@ -1169,10 +1211,9 @@
               <ul>
                 <li>
                   2013 - 2015 | EIFFEL Excellence Scholarship
-                  (Full scholarship by French Ministry of Foreign Affairs for master program)
                 </li>
               </ul>
-              <br><br>
+              <br>
               <h5>VOLUNTEERING</h5>
               <ul>
                 <li>2015 | Computer Tutor - Brooklyn Library</li>
@@ -1180,13 +1221,23 @@
                 <li>2010 | Spring Volunteer Campaign</li>
                 <li>2009 | University Entrance Support Campaign</li>
               </ul>
-              <br><br>
+              <br>
               <h5>LANGUAGES</h5>
               <ul>
                 <li><strong>Vietnamese:</strong> Mothertongue</li>
                 <li><strong>English:</strong> Full professional proficiency</li>
                 <li><strong>German:</strong> Elementary proficiency+</li>
                 <li><strong>French:</strong> Elementary proficiency</li>
+              </ul>
+              <br>
+              <h5>LEISURE ACTIVITY</h5>
+              <ul>
+                <li>
+                  Reading,
+                  <a class="anchor" href="#!" data-link='<iframe src="https://www.youtube.com/embed/SyBcj6Wa_Sw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'>Acting</a>,
+                  <a class="anchor" href="#!" data-link='<iframe src="https://www.youtube.com/embed/VEyeJgDAcYg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'>Rapping</a>,
+                  Table Tennis
+                </li>
               </ul>
             </div>
           </div>
@@ -1220,7 +1271,10 @@
           </svg>
         </div>
 
-        <div id="pageViews" />
+        <div id="pageViews"></div>
+        <div id="popUp">
+          <div class="main"></div>
+        </div>
       </section>
     </div>
     <script>
@@ -1419,6 +1473,29 @@
       }
 
       typewriter();
+
+      const popUp = document.getElementById('popUp');
+
+      const anchors = document.querySelectorAll('.anchor');
+      Array.from(anchors).forEach(anchor => {
+        anchor.onclick = (ev) => {
+          popUp.querySelector('.main').innerHTML = ev.target.dataset.link;
+          popUp.style.display = 'block';
+        };
+      });
+
+      window.onclick = (ev) => {
+        if (popUp.contains(ev.target)) {
+          popUp.style.display = 'none';
+        }
+      };
+
+      window.onkeydown = (ev) => {
+        if (ev.key === 'Escape' || ev.key === 'Esc' || ev.keyCode === 27) {
+          popUp.querySelector('.main').innerHTML = '';
+          popUp.style.display = 'none';
+        }
+      };
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
