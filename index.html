@@ -1486,6 +1486,7 @@
 
       window.onclick = (ev) => {
         if (popUp.contains(ev.target)) {
+          popUp.querySelector('.main').innerHTML = '';
           popUp.style.display = 'none';
         }
       };
