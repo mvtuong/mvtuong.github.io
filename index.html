@@ -1198,16 +1198,16 @@
             </div>
             <div class="description">
               <p><em>Cliqz / Ghostery desktop browser</em> (<a href="https://github.com/cliqz-oss/browser-f">Github</a>)</p>
-              <p><i>Connect, Video Downloader, Theme, Offer, History/Bookmark import, Alternative Search Engines, Telemetry</i></p>
+              <p><i>Contributed to: Connect, Video Downloader, Theme, Offer, History/Bookmark import, Alternative Search Engines, Telemetry</i></p>
               <br>
               <p><em>Cliqz navigation extension</em> (<a href="https://github.com/cliqz-oss/browser-core">Github</a>)</p>
-              <p><i>Control Center, <a class="anchor" href="#!" data-link='<iframe src="https://www.youtube.com/embed/yAsVQRlialo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'>Smart Results</a>, Mixer, Message Center, Last Search Query, New Tab page, Onboarding, Query Suggestions, History Search</i></p>
+              <p><i>Contributed to: Control Center, <a class="anchor" href="#!" data-link='<iframe src="https://www.youtube.com/embed/yAsVQRlialo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'>Smart Results</a>, Mixer, Message Center, Last Search Query, New Tab page, Onboarding, Query Suggestions, History Search</i></p>
               <br>
               <p><em>Ghostery extension</em> (<a href="https://github.com/ghostery/ghostery-extension">Github</a>)</p>
-              <p><i>Mobile UI</i></p>
+              <p><i>Contributed to: Mobile UI</i></p>
               <br>
               <p><em>Other Projects</em> (<a href="https://github.com/mai-cliqz?tab=repositories">Github</a>)</p>
-              <p><i>Speech To Text, WebExtentions Experiement APIs, Web Sockets, Vue.js, Sentiment Analysis</i></p>
+              <p><i>Technologies: Speech To Text, WebExtentions Experiement APIs, Web Sockets, Vue.js, Sentiment Analysis, etc</i></p>
             </div>
           </div>
 
@@ -1405,7 +1405,7 @@
       }
 
       var plane = document.getElementById('plane');
-      plane.onmousedown = function() {
+      var animatePlan = function() {
         plane.style.animation ='flight 14s linear forwards infinite';
 
         var clouds = document.getElementsByClassName('cloud-wrapper');
@@ -1418,6 +1418,14 @@
           flowers[i].classList.add('animate');
         }
       }
+
+      plane.onmousedown = animatePlan;
+
+      setTimeout(function() {
+        if (document.body.scrollTop < 300) {
+          animatePlan();
+        }
+      }, 9000);
 
       function initTheme() {
         if (sessionStorage.length) {
@@ -1452,7 +1460,7 @@
         'Skilled in Javascript (React, NodeJs), SCSS, Python, Git, Database and Web Applications / APIs.',
         'Strong engineering professional with two Master’s Degrees focused in Communication and System Security from Télécom ParisTech & John von Neumann Institute.'
       ];
-      var iSpeed = 40; // time delay of print out
+      var iSpeed = 20; // time delay of print out
       var iIndex = 0; // start printing array at this posision
       var iArrLength = aText[0].length; // the length of the text array
       var iScrollAt = 20; // start scrolling up at this many lines
